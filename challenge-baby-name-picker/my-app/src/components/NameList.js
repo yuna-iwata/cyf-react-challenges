@@ -5,8 +5,9 @@ import { useState } from "react";
 export default function NameList() {
   const [inputName, setInputName] = useState("");
   const [faveNames, setFaveNames] = useState([]);
+  const [allNames, setAllNames] = useState(namesData);
 
-  const searchedName = namesData.filter((item) => {
+  const searchedName = allNames.filter((item) => {
     return item.name.toLowerCase().startsWith(inputName.toLowerCase()) === true;
   });
 
@@ -17,6 +18,10 @@ export default function NameList() {
     const sexValue = splitValue[1];
     setFaveNames([{ name: nameValue, sex: sexValue }, ...faveNames]);
     console.log(faveNames);
+    const newNamesList = allNames.filter((item) => {
+      return item.name !== nameValue;
+    });
+    setAllNames(newNamesList);
   };
 
   const eachName = searchedName.map((item) => {
