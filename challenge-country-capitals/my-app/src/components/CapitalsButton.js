@@ -1,7 +1,13 @@
-export default function CapitalsButtons({ capital }) {
+export default function CapitalsButtons({ capital, correct, onCapitalClick }) {
   return (
     <div>
-      <button>{capital}</button>
+      <button
+        onClick={() => {
+          onCapitalClick(correct);
+        }}
+      >
+        {capital}
+      </button>
     </div>
   );
 }

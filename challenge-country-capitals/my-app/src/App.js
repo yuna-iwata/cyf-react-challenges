@@ -15,11 +15,14 @@ function App() {
       const country = countryData[countryIndex];
       const capital = country.capital;
       if (country !== randomCountry || !(country in capitalArray)) {
-        capitalArray.push(capital);
+        capitalArray.push({ option: capital, correct: false });
       }
     }
     const capitalIndex = Math.floor(Math.random() * 4);
-    capitalArray[capitalIndex] = randomCountry.capital + "correct";
+    capitalArray[capitalIndex] = {
+      option: randomCountry.capital,
+      correct: true,
+    };
     console.log(capitalArray);
     setCapitalOptions(capitalArray);
   };
@@ -41,7 +44,10 @@ function App() {
   return (
     <div className="App">
       <h1>What is the capital of {randomCountry.name}? </h1>
-      <CapitalsContainer capitalOptions={capitalOptions} />
+      <CapitalsContainer
+        capitalOptions={capitalOptions}
+        randomCountry={randomCountry}
+      />
       <button onClick={chooseCapital}>next</button>
     </div>
   );
