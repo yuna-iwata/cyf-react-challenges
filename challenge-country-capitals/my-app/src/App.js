@@ -5,8 +5,8 @@ import { useState, useEffect } from "react";
 import CapitalsContainer from "./components/CapitalsContainer";
 
 function App() {
-  const [randomCountry, setRandomCountry] = useState("");
-  const [capitalOptions, setCapitalOptions] = useState();
+  const [randomCountry, setRandomCountry] = useState({});
+  const [capitalOptions, setCapitalOptions] = useState([]);
 
   const setCapital = () => {
     const capitalArray = [];
@@ -28,10 +28,14 @@ function App() {
     setCapital();
   }, [randomCountry]);
 
-  const chooseCapital = async () => {
+  useEffect(() => {
+    chooseCapital();
+  }, []);
+
+  const chooseCapital = () => {
     const countryIndex = Math.floor(Math.random() * countryData.length);
     const country = countryData[countryIndex];
-    await setRandomCountry(country);
+    setRandomCountry(country);
   };
 
   return (
