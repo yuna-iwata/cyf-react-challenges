@@ -3,6 +3,7 @@ export default function DieRoller({ numOfSides, addToHistory }) {
   const [total, setTotal] = useState();
   const [numOfDice, setNumOfDice] = useState();
   const [modifier, setModifier] = useState(0);
+  const [color, setColor] = useState("black");
 
   const rollDice = (numOfDice, numOfSides) => {
     let totalOfDiceRoll = 0;
@@ -13,8 +14,10 @@ export default function DieRoller({ numOfSides, addToHistory }) {
     const totalWithModifier = parseInt(totalOfDiceRoll) + parseInt(modifier);
     if (totalWithModifier < 1) {
       setTotal(1);
+      setColor("red");
     } else {
       setTotal(parseInt(totalOfDiceRoll) + parseInt(modifier));
+      setColor("black");
     }
   };
 
@@ -25,11 +28,26 @@ export default function DieRoller({ numOfSides, addToHistory }) {
   }, [total]);
 
   const handleNumOfDiceInput = (e) => {
-    setNumOfDice(e.target.value);
+    const inputVal = e.target.value;
+    if (inputVal) {
+      setNumOfDice(e.target.value);
+    }
   };
 
   const handleModifierInput = (e) => {
-    setModifier(e.target.value);
+    const inputVal = e.target.value;
+    if (inputVal) {
+      setModifier(e.target.value);
+    }
+  };
+
+  const style = {
+    red: {
+      color: "red",
+    },
+    black: {
+      color: "black",
+    },
   };
 
   return (
@@ -38,10 +56,15 @@ export default function DieRoller({ numOfSides, addToHistory }) {
         <input
           placeholder="how many dice?"
           onChange={handleNumOfDiceInput}
+          type="number"
         ></input>
         d{numOfSides} +{" "}
-        <input placeholder="modifier" onChange={handleModifierInput}></input> ={" "}
-        {total}
+        <input
+          placeholder="modifier"
+          onChange={handleModifierInput}
+          type="number"
+        ></input>{" "}
+        = <span style={style[color]}>{total}</span>
       </p>
 
       <button
